@@ -1,0 +1,24 @@
+<h1>Rails SVG Icons - cached and colorable</h1>
+<p>
+  This page renders <strong>10,000 icons</strong> (100x100 grid) using only <strong>4 SVG files</strong>.
+  Open DevTools Network tab to verify only 4 icon requests are made.
+</p>
+
+<h2>How it works</h2>
+<ul>
+  <li>Each icon uses a helper: <code>&lt;%= icon :heart, color: :red, size: :lg %&gt;</code></li>
+  <li>Renders as: <code>&lt;icon class="icon-red icon-lg" data-icon="heart"&gt;&lt;/icon&gt;</code></li>
+  <li>CSS <code>mask-image</code> uses the SVG as a stencil</li>
+  <li><code>background-color</code> provides the visible color</li>
+  <li>SVGs are cached - 10,000 icons = 4 HTTP requests total</li>
+</ul>
+
+<h2>10,000 Icons Grid</h2>
+<div class="icon-grid">
+  <% icons = %i[heart lock star bell] %>
+  <% colors = %i[red blue green purple amber] %>
+  <% sizes = %i[sm md lg] %>
+  <% 10_000.times do %>
+    <%= icon icons.sample, color: colors.sample, size: sizes.sample %>
+  <% end %>
+</div>

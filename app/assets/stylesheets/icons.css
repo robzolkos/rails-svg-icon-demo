@@ -1,0 +1,164 @@
+/*
+ * =============================================================================
+ * CSS-ONLY SVG ICON SYSTEM
+ * =============================================================================
+ *
+ * This approach uses CSS masks to display SVG icons with dynamic colors.
+ *
+ * HOW IT WORKS:
+ * -------------
+ * 1. The SVG file is loaded as a mask-image (the SVG acts as a stencil)
+ * 2. The background-color shows through where the SVG has filled areas
+ * 3. Colors can be changed via CSS custom properties or inline styles
+ *
+ * PERFORMANCE BENEFITS:
+ * ---------------------
+ * - SVGs are loaded once and cached by the browser
+ * - No JavaScript required for rendering
+ * - No inline SVG bloat in HTML (each icon is just an <icon> element)
+ * - 10,000 icons = 2 HTTP requests (one per unique SVG file)
+ * - Colors are applied via CSS, not by modifying SVG content
+ *
+ * BROWSER SUPPORT:
+ * ----------------
+ * - Works in all modern browsers (Chrome, Firefox, Safari, Edge)
+ * - Uses -webkit- prefix for Safari compatibility
+ * - mask-image has excellent support: https://caniuse.com/css-masks
+ *
+ * =============================================================================
+ */
+
+/*
+ * BASE ICON CLASS
+ * ---------------
+ * All icons share these common mask properties.
+ * The background-color is what actually renders as the icon color.
+ */
+icon {
+  /* Default icon size - can be overridden */
+  width: 24px;
+  height: 24px;
+
+  /* The color of the icon - uses CSS custom property with fallback */
+  background-color: var(--icon-color, currentColor);
+
+  /* Mask properties - these control how the SVG is displayed */
+  /* -webkit- prefixes needed for Safari */
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  -webkit-mask-size: contain;
+
+  /* Standard mask properties */
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: contain;
+
+  /* Ensure the element is displayed as a block for sizing */
+  display: inline-block;
+}
+
+/*
+ * ICON DEFINITIONS
+ * ----------------
+ * Each icon type gets its own data-icon attribute selector.
+ * The SVG file is referenced via mask-image.
+ *
+ * To add a new icon:
+ * 1. Add the SVG file to app/assets/images/icons/
+ * 2. Add a new selector: icon[data-icon="name"] { mask-image: url("icons/name.svg"); }
+ */
+
+/* Heart icon - from Heroicons (solid) */
+icon[data-icon="heart"] {
+  -webkit-mask-image: url("icons/heart.svg");
+  mask-image: url("icons/heart.svg");
+}
+
+/* Lock icon - from Heroicons (solid) */
+icon[data-icon="lock"] {
+  -webkit-mask-image: url("icons/lock.svg");
+  mask-image: url("icons/lock.svg");
+}
+
+/* Star icon - from Heroicons (outline) */
+icon[data-icon="star"] {
+  -webkit-mask-image: url("icons/star.svg");
+  mask-image: url("icons/star.svg");
+}
+
+/* Bell icon - from Heroicons (outline) */
+icon[data-icon="bell"] {
+  -webkit-mask-image: url("icons/bell.svg");
+  mask-image: url("icons/bell.svg");
+}
+
+/*
+ * COLOR PALETTE
+ * -------------
+ * Predefined color classes for convenience.
+ * These set the --icon-color custom property.
+ *
+ * Usage: <%= icon :heart, color: :red %>
+ */
+
+icon.icon-red {
+  --icon-color: #ef4444;
+}
+
+icon.icon-blue {
+  --icon-color: #3b82f6;
+}
+
+icon.icon-green {
+  --icon-color: #22c55e;
+}
+
+icon.icon-purple {
+  --icon-color: #a855f7;
+}
+
+icon.icon-amber {
+  --icon-color: #f59e0b;
+}
+
+/*
+ * SIZE VARIANTS
+ * -------------
+ * Predefined size classes for convenience.
+ *
+ * Usage: <%= icon :heart, size: :lg %>
+ */
+
+icon.icon-sm {
+  width: 16px;
+  height: 16px;
+}
+
+icon.icon-md {
+  width: 24px;
+  height: 24px;
+}
+
+icon.icon-lg {
+  width: 32px;
+  height: 32px;
+}
+
+/*
+ * =============================================================================
+ * DEMO GRID STYLES
+ * =============================================================================
+ * These styles are for the demonstration page showing 100x100 grid of icons.
+ */
+
+.icon-grid {
+  /* Flexible grid that wraps icons of varying sizes */
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+
+  /* Contain the grid */
+  padding: 20px;
+  overflow: auto;
+}
