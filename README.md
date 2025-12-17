@@ -2,6 +2,8 @@
 
 A demo Rails application showcasing a CSS-only technique for rendering SVG icons that are both cacheable and dynamically colorable.
 
+<img width="2916" height="1814" alt="screenshot-2025-12-17_11-27-37" src="https://github.com/user-attachments/assets/71c74825-fd02-4441-bc6e-a73ba999c1fa" />
+
 ## Installation
 
 ```bash
